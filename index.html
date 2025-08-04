@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Ilmi</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      transition: background 0.5s;
+      color: white;
+    }
+
+    .halaman {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+      width: 100%;
+    }
+
+    #halaman1 {
+      display: flex;
+      background: linear-gradient(135deg, #ff4b4b, #b30000);
+      background-size: cover;
+      color: white;
+    }
+
+    #halaman2 {
+      background-color: white;
+      color: black;
+      background-image: radial-gradient(gray 1px, transparent 1px);
+      background-size: 30px 30px;
+    }
+
+    #halaman3 {
+      background-color: white;
+      color: black;
+      background-image: repeating-linear-gradient(
+        45deg,
+        #eee,
+        #eee 10px,
+        #fff 10px,
+        #fff 20px
+      );
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      text-shadow: 1px 1px black;
+    }
+
+    button {
+      background-color: white;
+      color: red;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .kotak-jawaban {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0;
+    }
+
+    .kotak-jawaban input {
+      width: 35px;
+      height: 35px;
+      text-align: center;
+      margin: 0 4px;
+      font-size: 18px;
+      border: 2px solid gray;
+      border-radius: 10px;
+    }
+
+    #gambar1, #gambar2 {
+      width: 200px;
+      height: auto;
+      margin-bottom: 15px;
+      border-radius: 10px;
+    }
+
+    #status1, #status2 {
+      margin: 10px;
+      font-weight: bold;
+      display: none;
+    }
+
+    .benar {
+      color: green;
+    }
+
+    .salah {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Halaman 1 -->
+<div id="halaman1" class="halaman">
+  <h1>Selamat Datang di Game Ilmi</h1>
+  <button onclick="keHalaman2()">Main</button>
+</div>
+
+<!-- Halaman 2 -->
+<div id="halaman2" class="halaman">
+  <img id="gambar1" src="https://via.placeholder.com/200" alt="Gambar 1">
+  <div class="kotak-jawaban" id="jawaban1">
+    <input maxlength="1">
+    <input maxlength="1">
+    <input maxlength="1">
+    <input maxlength="1">
+    <input maxlength="1">
+    <input maxlength="1">
+    <input maxlength="1">
+  </div>
+  <button onclick="cekJawaban1()">Cek Jawaban</button>
+  <div id="status1"></div>
+  <button id="lanjut1" onclick="keHalaman3()" style="display:none;">Lanjut</button>
+</div>
+
+<!-- Halaman 3 -->
+<div id="halaman3" class="halaman">
+  <img id="gambar2" src="https://via.placeholder.com/200" alt="Gambar 2">
+  <div class="kotak-jawaban" id="jawaban2">
+    <input maxlength="1">
+    <input maxlength="1">
+    <input maxlength="1">
+    <input maxlength="1">
+    <input maxlength="1">
+  </div>
+  <button onclick="cekJawaban2()">Cek Jawaban</button>
+  <div id="status2"></div>
+  <button id="selesai" onclick="alert('Game selesai!')" style="display:none;">Selesai</button>
+</div>
+
+<script>
+  function keHalaman2() {
+    document.getElementById('halaman1').style.display = 'none';
+    document.getElementById('halaman2').style.display = 'flex';
+    document.body.style.background = '#fff';
+    document.body.style.color = 'black';
+  }
+
+  function cekJawaban1() {
+    let inputs = document.querySelectorAll('#jawaban1 input');
+    let jawaban = '';
+    inputs.forEach(inp => jawaban += inp.value.toLowerCase());
+    let status = document.getElementById('status1');
+    if (jawaban === 'selamat') {
+      status.innerText = 'Benar!';
+      status.className = 'benar';
+      status.style.display = 'block';
+      document.getElementById('lanjut1').style.display = 'inline-block';
+    } else {
+      status.innerText = 'Salah!';
+      status.className = 'salah';
+      status.style.display = 'block';
+      document.getElementById('lanjut1').style.display = 'none';
+    }
+  }
+
+  function keHalaman3() {
+    document.getElementById('halaman2').style.display = 'none';
+    document.getElementById('halaman3').style.display = 'flex';
+  }
+
+  function cekJawaban2() {
+    let inputs = document.querySelectorAll('#jawaban2 input');
+    let jawaban = '';
+    inputs.forEach(inp => jawaban += inp.value.toLowerCase());
+    let status = document.getElementById('status2');
+    if (jawaban === 'ulang') {
+      status.innerText = 'Benar!';
+      status.className = 'benar';
+      status.style.display = 'block';
+      document.getElementById('selesai').style.display = 'inline-block';
+    } else {
+      status.innerText = 'Salah!';
+      status.className = 'salah';
+      status.style.display = 'block';
+      document.getElementById('selesai').style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
